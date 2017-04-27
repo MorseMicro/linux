@@ -2616,7 +2616,7 @@ ieee80211_sta_process_chanswitch(struct ieee80211_link_data *link,
 
 	/* we may have to handle timeout for deactivated link in software */
 	now = ktime_get_boottime();
-	csa_time_tu = (max_t(int, csa_ie.count, 1) - 1) * link->conf->beacon_int;
+	csa_time_tu = (max_t(int, csa_ie.count, 1) - 1) * link->conf->beacon_int * sdata->vif.bss_conf.dtim_period;
 	link->u.mgd.csa.time = now + ns_to_ktime(ieee80211_tu_to_usec(csa_time_tu) * NSEC_PER_USEC);
 
 	if (ieee80211_vif_link_active(&sdata->vif, link->link_id) &&
